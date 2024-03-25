@@ -47,7 +47,7 @@
         macro      \
     } while (0)
 
-#define F3DEX_GBI_2
+#define F3DEX_GBI
 
 #ifdef F3DEX_GBI_2
 #ifndef F3DEX_GBI
