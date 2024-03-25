@@ -1,6 +1,10 @@
 #ifndef ULTRA64_MESSAGE_H
 #define ULTRA64_MESSAGE_H
 
+#include <ultra/include/PR/os_message.h>
+
+#if 0
+
 #include "thread.h"
 
 #define OS_MESG_NOBLOCK 0
@@ -51,5 +55,6 @@ typedef struct OSMesgQueue {
     /* 0x10 */ s32 msgCount;
     /* 0x14 */ OSMesg* msg;
 } OSMesgQueue; // size = 0x18
+#endif
 
 #endif
