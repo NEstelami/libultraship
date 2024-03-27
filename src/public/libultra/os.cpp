@@ -3,9 +3,18 @@
 
 extern "C" {
 uint8_t __osMaxControllers = MAXCONTROLLERS;
+static bool hasInit = false;
 
-int32_t osContInit(OSMesgQueue* mq, uint8_t* controllerBits, OSContStatus* status) {
-    *controllerBits = 0;
+int32_t osContInit(OSMesgQueue* mq, uint8_t* controllerBits, OSContStatus* status) 
+{
+	// Dragon Sword calls osContInit every single frame. This results in poor performance.
+	// So we need to take note if we've already initialized things.
+    if (hasInit) {
+        *controllerBits = 1;
+        return 0;
+    }
+	
+	*controllerBits = 0;
 
 #ifndef __WIIU__
     if (SDL_Init(SDL_INIT_GAMECONTROLLER) != 0) {
@@ -25,6 +34,8 @@ int32_t osContInit(OSMesgQueue* mq, uint8_t* controllerBits, OSContStatus* statu
 #endif
 
     LUS::Context::GetInstance()->GetControlDeck()->Init(controllerBits);
+
+	hasInit = true;
 
     return 0;
 }
