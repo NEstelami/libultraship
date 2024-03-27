@@ -201,9 +201,10 @@ void Context::InitResourceManager(const std::vector<std::string>& otrFiles,
 #elif defined(__WIIU__)
         LUS::WiiU::ThrowMissingOTR(mMainPath.c_str());
 #else
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "OTR file not found",
-                                 "Main OTR file not found. Please generate one", nullptr);
-        SPDLOG_ERROR("Main OTR file not found!");
+		// BLTODO: Disabled for now since we are not using an OTR archive at this time.
+        //SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "OTR file not found",
+                                 //"Main OTR file not found. Please generate one", nullptr);
+        //SPDLOG_ERROR("Main OTR file not found!");
 #endif
         return;
     }

@@ -149,7 +149,7 @@ void Gui::Init(GuiWindowInitData windowImpl) {
     GetGuiWindow("Stats")->Init();
     GetGuiWindow("Input Editor")->Init();
     GetGuiWindow("Console")->Init();
-    GetGameOverlay()->Init();
+    //GetGameOverlay()->Init();
 
     ImGuiWMInit();
     ImGuiBackendInit();
