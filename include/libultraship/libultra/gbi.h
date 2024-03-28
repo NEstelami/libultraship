@@ -47,7 +47,7 @@
         macro      \
     } while (0)
 
-#define F3DEX_GBI
+#define F3DEX_GBI_2
 
 #ifdef F3DEX_GBI_2
 #ifndef F3DEX_GBI
@@ -1713,7 +1713,7 @@ typedef union {
 #define gsSPNoOp() gsDma0p(G_SPNOOP, 0, 0)
 
 #ifdef F3DEX_GBI_2
-#define gSPMatrix(pkt, m, p) gDma2p((pkt), G_MTX, (m), sizeof(Mtx), (p) ^ G_MTX_PUSH, 0)
+#define __gSPMatrix(pkt, m, p) gDma2p((pkt), G_MTX, (m), sizeof(Mtx), (p) ^ G_MTX_PUSH, 0)
 #define gsSPMatrix(m, p) gsDma2p(G_MTX, (m), sizeof(Mtx), (p) ^ G_MTX_PUSH, 0)
 #else /* F3DEX_GBI_2 */
 #define gSPMatrix(pkt, m, p) gDma1p(pkt, G_MTX, m, sizeof(Mtx), p)
@@ -1730,7 +1730,7 @@ typedef union {
  *        | |seg|         address             |
  *        +-+---+-----------------------------+
  */
-#define __gSPVertex(pkt, v, n, v0)                                                              \
+#define gSPVertex(pkt, v, n, v0)                                                              \
     _DW({                                                                                       \
         Gfx* _g = (Gfx*)(pkt);                                                                  \
         _g->words.w0 = _SHIFTL(G_VTX, 24, 8) | _SHIFTL((n), 12, 8) | _SHIFTL((v0) + (n), 1, 7); \
@@ -2603,7 +2603,7 @@ typedef union {
 #ifdef F3DEX_GBI_2
 #define gSPPopMatrixN(pkt, n, num) gDma2p((pkt), G_POPMTX, (num)*64, 64, 2, 0)
 #define gsSPPopMatrixN(n, num) gsDma2p(G_POPMTX, (num)*64, 64, 2, 0)
-#define gSPPopMatrix(pkt, n) gSPPopMatrixN((pkt), (n), 1)
+#define __gSPPopMatrix(pkt, n) gSPPopMatrixN((pkt), (n), 1)
 #define gsSPPopMatrix(n) gsSPPopMatrixN((n), 1)
 #else /* F3DEX_GBI_2 */
 #define gSPPopMatrix(pkt, n) gImmp1(pkt, G_POPMTX, n)
@@ -2822,7 +2822,8 @@ typedef union {
 #define gDPSetMaskImage(pkt, i) gDPSetDepthImage(pkt, i)
 #define gsDPSetMaskImage(i) gsDPSetDepthImage(i)
 
-#define __gDPSetTextureImage(pkt, f, s, w, i) gSetImage(pkt, G_SETTIMG, f, s, w, i)
+//#define __gDPSetTextureImage(pkt, f, s, w, i) gSetImage(pkt, G_SETTIMG, f, s, w, i)
+#define gDPSetTextureImage(pkt, f, s, w, i) gSetImage(pkt, G_SETTIMG, f, s, w, i)
 #define gsDPSetTextureImage(f, s, w, i) gsSetImage(G_SETTIMG, f, s, w, i)
 #define __gDPSetTextureImageFB(pkt, f, s, w, i) gSetImage(pkt, G_SETTIMG_FB, f, s, w, i)
 

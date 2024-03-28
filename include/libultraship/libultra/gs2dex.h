@@ -223,7 +223,11 @@ typedef struct {
 #define G_OBJ_RECTANGLE_R 0xda
 #define G_OBJ_MOVEMEM 0xdc
 #define G_RDPHALF_0 0xe4
+#ifdef PLATFORM_PC
+#define G_OBJ_RECTANGLE 0x98 // Needed to avoid conflict with G_VTX
+#else
 #define G_OBJ_RECTANGLE 0x01
+#endif
 #define G_OBJ_SPRITE 0x02
 #define G_SELECT_DL 0x04
 #define G_OBJ_LOADTXTR 0x05
